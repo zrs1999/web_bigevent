@@ -1,6 +1,4 @@
 $(() => {
-
-
     //点击" 去注册账号"的链接
     $("#link_reg").on("click", () => {
         $(".login-box").hide()
@@ -40,12 +38,13 @@ $(() => {
     //监听注册表单的提交事件
     $("#form-reg").on("submit", (e) => {
         e.preventDefault()
-        const date = {
-            username: $("#form_reg [name=username]").val(),
-            password: $("#form_reg [name=password]").val()
+        var data = {
+            username: $('#form-reg [name=username]').val(),
+            password: $('#form-reg [name=password]').val()
         }
-        $.post("/api/reguser", date, (res) => {
-            $('#link_login').click()
+        console.log(data);
+
+        $.post("/api/reguser", data, (res) => {
             if (res.status !== 0) return layer.msg(res.message)
             layer.msg("注册成功", { icon: 1, time: 1000 })
                 //模拟人的点击
@@ -55,11 +54,12 @@ $(() => {
 
 
     //监听登录表单的提交事件
-    $("#form-login").submit((e) => {
+    $("#form-login").submit(function(e) {
         e.preventDefault()
         $.ajax({
             url: '/api/login',
             method: "POST",
+            data: $(this).serialize(),
             success: (res) => {
                 if (res.status !== 0) {
                     return layer.msg('登录失败', { icon: 2 })
@@ -68,7 +68,7 @@ $(() => {
                     // 将登录成功得到的 token 字符串，保存到 localStorage 中
                 localStorage.setItem('token', res.token)
                     // 跳转到后台主页
-                location.href = '/index.html'
+                location.href = './index.html'
             }
         })
     })
