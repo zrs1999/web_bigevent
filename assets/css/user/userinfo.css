@@ -1,0 +1,17 @@
+html,
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.layui-input {
+    background-color: rgba(0, 0, 0, 0);
+    caret-color: #fff;
+    border: 0;
+    outline: medium;
+    color: rgb(239, 252, 167);
+}
+
+.layui-input::placeholder {
+    color: rgb(197, 182, 182);
+}
